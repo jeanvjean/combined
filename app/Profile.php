@@ -12,9 +12,4 @@ class Profile extends Model
     {
         $this->belongsTo('App\user');
     }
-
-    public function product()
-    {
-        return $this->hasMany('App\Product');
-    }
 }
