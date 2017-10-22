@@ -2,12 +2,15 @@
 
 namespace App;
 
+use App\Traits\Friendable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
+
     use Notifiable;
+
+    use Friendable;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','sex','slug'
+        'firstname','lastname','email', 'password', 'slug', 'sex', 'img'
     ];
 
     /**
@@ -23,7 +26,15 @@ class User extends Authenticatable
      *
      * @var array
      */
+  public function isRole(){
+    return $this->role; // mysql table column
+  }
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function profile() {
+        return $this->hasOne('App\profile');
+    }
+
 }

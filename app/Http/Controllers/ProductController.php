@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use Session;
+use App\Profile;
+use Auth;
 use App\Category;
 use App\Cart;
 
@@ -18,6 +20,7 @@ class ProductController extends Controller
     public function index()
     {
         $products=Product::all();
+
         return view('products.index')->withProducts($products);
     }
 
@@ -51,6 +54,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories=Category::all();
+
         return view('products.create')->withCategories($categories);
     }
 

@@ -7,9 +7,11 @@
         <div class="col-md-10">
             <h1>All Products</h1>
         </div>
+    @if(Auth::check())
         <div class="col-md-2">
             <a href="{{ route('products.create') }}" class="btn btn-primary">Post New Product</a>
         </div>
+    @endif
         <div class="col-md-12">
             <hr>
         </div>
