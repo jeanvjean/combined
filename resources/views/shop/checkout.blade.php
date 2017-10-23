@@ -55,8 +55,8 @@
                         <label for="ccv">CCV</label>
                         <input type="text" id="ccv" class="form-control" required="">
                     </div>
+                    <button type="submit" class="btn btn-success">Proceed to Checkout</button>
                 </div>
-                <button type="submit" class="btn btn-success">Buy now</button>
             </form>
         </div>
     </div>

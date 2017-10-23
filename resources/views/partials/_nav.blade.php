@@ -15,7 +15,7 @@
                 <ul class="nav navbar-nav">
                 <li  class="{{ Request::is('/')? "active":"" }}"><a href="/"><span class="fa fa-home fa-2x"></span> Home</a></li>
             @if(Auth::check())
-                <li class="{{ Request::is('profile')? "active":"" }}"><a href="{{ url('profile') }}/{{ Auth::user()->slug }}"><span class="fa fa-street-view fa-2x"></span>Profile</a></li>
+                <li><a href="{{ url('profile') }}/{{ Auth::user()->slug }}"><span class="fa fa-street-view fa-2x"></span>Profile</a></li>
                 <li><a href="{{ url('/requests') }}"><span class="fa fa-pied-piper-alt fa-2x"></span>Followers</a></li>
                 <li><a href="{{ url('/findFriends') }}"><span class="fa fa-users fa-2x"></span></a></li>
                 <li class="dropdown">
