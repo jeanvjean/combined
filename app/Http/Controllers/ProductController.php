@@ -72,22 +72,25 @@ class ProductController extends Controller
             'name'=>'required',
             'description'=>'required|min:5|max:1000',
             'category_id'=>'required|integer',
-            'price'=>'required'
+            'price'=>'required',
+            'image'=>'required|max:1990'
         ]);
-        /*if($request->hasFile('image'){
+        if($request->hasFile('image')){
             $filenameWithExt = $request->file('image')->getClientOriginalName();
-            $filename=path_info($filenameWithExt,PATHINFO-FILENAME);
+            $filename=pathinfo($filenameWithExt,PATHINFO_FILENAME);
             $extension = $request->file('image')->getClientOriginalExtension();
-            $filenameToStore = $filename.'.'time().'.'$extension;
-            $path = $request->file('image')->storeAs('public/img', $filenameToStore);
-        });*/
+            $fileNameToStore = $filename.'.'.time().'.'.$extension;
+            $path = $request->file('image')->storeAs('public/image', $fileNameToStore);
+        }else{
+            $fileNameToStore = noimage.jpg;
+        }
 
 
 
         $product=new Product;
 
         $product->name=$request->name;
-        //$product->image->$request->image;
+        $product->image=$fileNameToStore;
         $product->description=$request->description;
         $product->category_id=$request->category_id;
         $product->price=$request->price;

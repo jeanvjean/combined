@@ -21,10 +21,11 @@
 
                 @foreach ($products as $product)
             <div class="thumbnail col-md-3">
+                    <img height="100px" src="/storage/image/{{ $product->image }}" alt="">
                     <h3>{{ $product->name }}</h3>
                     <p>{{ $product->description }}</p>
                     <p>#{{ $product->price }}</p>
-                    <a href="{{ route('products.addToCart',$product->id) }}" class="btn btn-success btn-block">Add To Cart</a>
+                    <a href="{{ route('products.addToCart',$product->id) }}" class="btn btn-success btn-sm pull-right">Add To Cart</a>
             </div>
                 @endforeach
 

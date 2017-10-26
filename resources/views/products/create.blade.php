@@ -11,8 +11,8 @@
                 <form action="{{route('products.store')}}" method="POST" data-app-validate="" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
-                    <!--{{ Form::label('image', 'Product Image') }}
-                    {{ Form::file('image',null,['class'=>'form-control','required'=>'']) }}-->
+                    {{ Form::label('image', 'Product Image') }}
+                    {{ Form::file('image',null,['class'=>'form-control','required'=>'']) }}
 
                     {{ Form::label('name', 'Product:') }}
                     {{ Form::text('name',null,['class'=>'form-control','required'=>'']) }}
