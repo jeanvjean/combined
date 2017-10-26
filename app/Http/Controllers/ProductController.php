@@ -74,16 +74,25 @@ class ProductController extends Controller
             'category_id'=>'required|integer',
             'price'=>'required'
         ]);
+        /*if($request->hasFile('image'){
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            $filename=path_info($filenameWithExt,PATHINFO-FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $filenameToStore = $filename.'.'time().'.'$extension;
+            $path = $request->file('image')->storeAs('public/img', $filenameToStore);
+        });*/
+
 
 
         $product=new Product;
 
         $product->name=$request->name;
+        //$product->image->$request->image;
         $product->description=$request->description;
         $product->category_id=$request->category_id;
         $product->price=$request->price;
 
-        $product->save();
+        Auth::user()->product()->save($product);
 
         Session::flash('success','Saved');
         return redirect()->route('products.show', $product->id);
@@ -135,7 +144,7 @@ class ProductController extends Controller
         $product->category_id=$request->input('category_id');
         $product->price=$request->input('price');
 
-        $product->save();
+        Auth::user()->product()->save($product);
         Session::flash('success','Update Successfull');
         return redirect()->route('products.show',$product->id);
     }

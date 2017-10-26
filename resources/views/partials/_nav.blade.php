@@ -15,9 +15,7 @@
                 <ul class="nav navbar-nav">
                 <li  class="{{ Request::is('/')? "active":"" }}"><a href="/"><span class="fa fa-home fa-2x"></span> Home</a></li>
             @if(Auth::check())
-                <li><a href="{{ url('profile') }}/{{ Auth::user()->slug }}"><span class="fa fa-street-view fa-2x"></span>Profile</a></li>
                 <li><a href="{{ url('/requests') }}"><span class="fa fa-pied-piper-alt fa-2x"></span>Followers</a></li>
-                <li><a href="{{ url('/findFriends') }}"><span class="fa fa-users fa-2x"></span></a></li>
                 <li class="dropdown">
                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                                   role="button" aria-expanded="false">
@@ -68,12 +66,19 @@
                                   </ul>
                                </li>
             @endif
-                <li class="dropdown">
-
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories<span class="caret"></span></a>
+                    <?php
+                    use App\Category;
+                    $categories=Category::all();
+                    ?>
                     <ul class="dropdown-menu">
-                        <li>
+                        @foreach ($categories as $category)
+                            <li><a href="{{ route('categories.show',$category->id) }}">
+                                {{ $category->name }}
+                            </a>
+                            </li>
+                        @endforeach
 
-                        </li>
                     </ul>
                     </li>
                 </ul>
@@ -89,8 +94,9 @@
                         <span><img src="{{ url('../') }}/img/{{ Auth::user()->img }}" width="30px" height="30px" class="img-rounded"></span>
                         <span>{{ Auth::user()->name }} </span><span class="caret"></span></a>
                     <ul class="dropdown-menu">
+                        <li><a href="{{ url('profile') }}/{{ Auth::user()->slug }}">Profile</a></li>
+                        <li><a href="{{ url('/findFriends') }}">Find User</a></li>
                         <li><a href="{{ route('products.create') }}">Add Product</a></li>
-                        <li><a href="{{ route('categories.index') }}">Categories</a></li>
                         <li><a href="{{ route('products.index') }}">Shop</a></li>
                         <li><a href="{{ url('editProfile') }}/{{ Auth::user()->slug }}">Edit Profile</a></li>
                         <li role="separator" class="divider"></li>
@@ -103,5 +109,5 @@
             @endif
             </ul>
         </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+    </div><!-- /.container-->
 </nav>

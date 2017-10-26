@@ -9,6 +9,7 @@ class PagesController extends Controller
 {
     public function getIndex()
     {
-        return view('welcome');
+        $products=Product::all();
+        return view('welcome')->withProducts($products);
     }
 }

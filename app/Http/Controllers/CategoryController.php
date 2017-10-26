@@ -19,6 +19,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+
         $categories=Category::all();
         return view('categories.index')->withCategories($categories);
     }
@@ -65,7 +66,7 @@ class CategoryController extends Controller
         $products=Category::find($id)->products;
 
         $categories=Category::all();
-        return view('categories.index')->withCategories($categories)->withProduct($products);
+        return view('categories.index')->withCategories($categories)->withProducts($products);
     }
 
     /**

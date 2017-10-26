@@ -7,4 +7,5 @@
             <link rel="stylesheet" href="{{asset('css/styles.css')}}">
             <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
             <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
+            <link rel="stylesheet" href="{{asset('css/w3.css')}}">
     </head>

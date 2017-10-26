@@ -16,7 +16,7 @@
                                 <img src="{{url('../')}}/img/{{$uList->img}}"
                                 width="80px" height="80px" class="img-rounded"/>
                         </div>
-                        <hr>
+                        <br>
                         <div class="col-md-7 pull-left">
                                <h3 style="margin:0px;"><a href="{{url('/profile')}}/{{$uList->slug}}">
                                  {{ucwords($uList->firstname)}}</a></h3>
@@ -34,11 +34,9 @@
                         if($check == ''){
                             ?>
                             <a href="{{ url('/addFriend') }}/{{ $uList->id }}" class="btn btn-info btn-sm" style="margin-top:10px">Follow</a>
-                            <a href="#" class="btn btn-info btn-sm" style="margin-top:10px">view Profile</a>
                         <?php } else {?>
                             <div class="">
                                 <a href="{{ url('unfollow') }}/{{$uList->id}}" class="btn btn-primary btn-sm" style="margin-top:10px">UnFollow</a>
-                                <a href="#" class="btn btn-info btn-sm" style="margin-top:10px">view Profile</a>
                             </div>
                         <?php }?>
                         </div>

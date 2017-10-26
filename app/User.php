@@ -34,11 +34,16 @@ class User extends Authenticatable {
     ];
 
     public function profile() {
-        return $this->hasOne('App\profile');
+        return $this->hasOne('App\Profile');
     }
     public function product()
     {
         return $this->hasMany('App\Product');
     }
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
+
 
 }

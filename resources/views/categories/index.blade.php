@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-10">
         <div class="navbar">
             <h3>Categories</h3>
             <ul class="nav navbar-nav">
@@ -22,39 +22,34 @@
             @if(!empty($products))
         <section>
             <h2>Products</h2>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Products</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($products as $product)
-                        <tr>
-                            <td>{{ $product->name }}</td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td>No Data</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                <div class="col-md-8">
+                    <div class="col-md-4">
+                        <h3>Products</h3>
+                        @forelse ($products as $product)
+                        <div class="thumbnail">
+                            <div class="">
+                                {{ $product->name }}</td>
+                            </div>
+                            <div class="">
+                                <p>{{ $product->description }}</p>
+                            </div>
+                            <div class="">
+                                <p>{{ $product->price }}</p>
+                            </div>
+                            <div class="clearfix">
+                                <a href="{{ route('products.addToCart',$product->id) }}" class="btn btn-xs btn-success pull-right">Add To Cart</a>
+                            </div>
+                        </div>
+                        @empty
+                            <tr>
+                                <td>No Product Available in this Category</td>
+                            </tr>
+                        @endforelse
+
+                   </div>
+                </div>
             @endif
         </section>
-    </div>
-    <div class="col-md-3">
-        <div class="well">
-            <h2>New Category</h2>
-            <form class="form-group" action="{{ route('categories.store') }}" method="post" data-app-validate="">
-                {{ csrf_field() }}
-
-                {{ Form::label('name','Name:') }}
-                {{ Form::text('name',null,['class'=>'form-control', 'required'=>'']) }}
-
-                {{ Form::submit('Create Category',['class'=>'btn btn-success btn-block', 'style'=>'margin-top:10px']) }}
-            </form>
-        </div>
     </div>
 </div>
 
