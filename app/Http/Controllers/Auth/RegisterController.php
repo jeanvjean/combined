@@ -71,11 +71,18 @@ class RegisterController extends Controller
         else{
             $img_path ='girl.png';
         }
+        if($data['account_type']=='designer'){
+            $account = 'designer';
+        }
+        else{
+            $account ='customer';
+        }
          $user = User::create([
 
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'img'=>$img_path,
+            'account_type'=>$account,
             'sex' => $data['sex'],
             'slug' => str_slug($data['firstname'],'-'),
             'email' => $data['email'],

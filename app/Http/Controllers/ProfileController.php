@@ -82,6 +82,9 @@ class ProfileController extends Controller
             $this->validate($request,[
             'country'=>'required',
             'city'=>'required',
+            'brand'=>'required',
+            'website'=>'required',
+            'work_email'=>'required',
             'phone_no'=>'required|max:11',
             'about'=>'required|max:2000'
         ]);
@@ -90,6 +93,9 @@ class ProfileController extends Controller
 
         $profile->country=$request->country;
         $profile->city=$request->city;
+        $profile->brand=$request->brand;
+        $profile->website=$request->website;
+        $profile->work_email=$request->work_email;
         $profile->phone_no=$request->phone_no;
         $profile->about=$request->about;
 

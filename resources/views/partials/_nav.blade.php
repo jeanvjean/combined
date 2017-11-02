@@ -104,8 +104,10 @@
                     </ul>
                 </li>
                 @else
-                <a href="{{ route('register') }}" class="pull-right btn btn-primary btn-sm">Sign Up</a>
-                <a href="{{ route('login') }}" class="pull-right btn btn-info btn-sm">Login</a>
+                    <div style="margin-top:7px">
+                        <a href="{{ route('register') }}" class="pull-right btn btn-primary btn-sm">Sign Up</a>
+                        <a href="{{ route('login') }}" class="pull-right btn btn-info btn-sm">Login</a>
+                    </div>
             @endif
             </ul>
         </div><!-- /.navbar-collapse -->
