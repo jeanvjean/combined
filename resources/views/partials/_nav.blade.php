@@ -15,7 +15,7 @@
                 <ul class="nav navbar-nav">
                 <li  class="{{ Request::is('/')? "active":"" }}"><a href="/"><span class="fa fa-home fa-2x"></span> Home</a></li>
             @if(Auth::check())
-                <li><a href="{{ url('/requests') }}"><span class="fa fa-pied-piper-alt fa-2x"></span>Followers</a></li>
+                <li><a href="{{ url('/followers') }}"><span class="fa fa-pied-piper-alt fa-2x"></span>Followers</a></li>
                 <li class="dropdown">
                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                                   role="button" aria-expanded="false">
@@ -66,7 +66,7 @@
                                   </ul>
                                </li>
             @endif
-                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories<span class="caret"></span></a>
+                <li class="dropdown" style="margin-top:8px"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories<span class="caret"></span></a>
                     <?php
                     use App\Category;
                     $categories=Category::all();

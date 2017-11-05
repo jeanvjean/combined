@@ -19,6 +19,14 @@
             <div>
                 <p>#{{ $product->price }}</p>
             </div>
+            <a href="{{ route('products.edit',$product->id) }}" class="btn btn-success btn-sm">Edit</a>
+            <div class="col-sm-6">
+                {!! Form::open(['route'=>['products.destroy',$product->id], 'method'=>'DELETE']) !!}
+
+                {!! Form::submit('Delete', ['class'=>'btn btn-danger btn-block']) !!}
+
+                {!! Form::close() !!}
+            </div>
         </div>
     </div>
 </div>

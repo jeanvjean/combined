@@ -11,20 +11,23 @@
 |
 */
 
-
+//cart
 Route::get('add_to_cart/{id}',['uses'=>'ProductController@getAddToCart','as'=>'products.addToCart']);
 Route::get('shopping-cart',['uses'=>'ProductController@getCart','as'=>'products.shoppingCart']);
+Route::get('/','PagesController@getIndex');
 
-Route::group(['middleware'=>['web']],function(){
-
+Route::group(['middleware'=>['web','auth']],function(){
+    //checkout
     Route::get('checkout',['uses'=>'ProductController@getCheckout', 'as'=>'checkout']);
     Route::post('checkout',['uses'=>'ProductController@postCheckout', 'as'=>'checkout']);
-
-    Route::get('/','PagesController@getIndex');
+    //Pages Controller
+    Route::get('contact', 'PagesController@getContact');
+    Route::post('contact', 'PagesController@postContact');
+    //resource controllers
+    Route::resource('designs','DesignController',['except'=>['create','index']]);
     Route::resource('products', 'ProductController');
-
     Route::resource('categories', 'CategoryController');
-
+    //ProfileController
     Route::get('/profile/{slug}','ProfileController@index');
     Route::get('/changeImage','ProfileController@changeImage');
     Route::post('/uploadImage','ProfileController@uploadImage');
@@ -33,7 +36,7 @@ Route::group(['middleware'=>['web']],function(){
 
     Route::get('/findFriends', 'ProfileController@findFriends');
     Route::get('/addFriend/{id}', 'ProfileController@sendRequest');
-    Route::get('/requests', 'ProfileController@requests');
+    Route::get('/followers', 'ProfileController@followers');
     Route::get('/unfollow/{id}', 'ProfileController@unfollow');
     Route::get('/notifications/{id}', 'ProfileController@notifications');
     //Route::get('/accept/{name}/{id}', 'ProfileController@accept');

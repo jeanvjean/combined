@@ -19,8 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products=Product::all();
-
+         $products=Product::orderBy('created_at', 'desc')->limit(8)->get();
         return view('products.index')->withProducts($products);
     }
 
@@ -56,7 +55,6 @@ class ProductController extends Controller
     public function create()
     {
         $categories=Category::all();
-
         return view('products.create')->withCategories($categories);
     }
 

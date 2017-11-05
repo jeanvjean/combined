@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Auth;
 use Session;
 use App\Profile;
+use App\Design;
+use App\Category;
 use Illuminate\Support\Facades\DB;
 use App\Notification;
 
@@ -24,7 +26,15 @@ class ProfileController extends Controller
      */
     public function index($slug)
     {
-        return view('profile.index')->with('data',Auth::user()->profile);;
+        /*$userData = DB::table('users')
+    ->leftJoin('profiles', 'profiles.user_id','users.id')
+    ->where('slug', $slug)
+    ->get();*/
+        $designs=Auth::user()->design;
+        $categories=Category::all();
+        return view('profile.index')->with('data',Auth::user()->profile)
+        ->withCategories($categories)
+        ->withDesigns($designs)/*->withUserData($userData)*/;
     }
 
     /**
@@ -117,7 +127,8 @@ class ProfileController extends Controller
            $uid = Auth::user()->id;
            $allUsers = DB::table('profiles')
            ->leftJoin('users', 'users.id', '=', 'profiles.user_id')
-           ->where('users.id', '!=', $uid)->get();
+           ->where('users.id', '!=', $uid)/*->orderBy('profiles.created_at', 'desc')
+           ->limit(4)*/->get();
 
            return view('profile.findFriends', compact('allUsers'));
      }
@@ -131,7 +142,7 @@ class ProfileController extends Controller
          $FriendRequests = DB::table('followers')
                          ->rightJoin('users', 'users.id', '=', 'followers.requester')
                          ->where('followers.requested', '=', $uid)->get()
-                         ->where('status', '=', 1);
+                         ->where('status', '=', 1)->get();
 
 
          $notifications = new Notification;
@@ -144,7 +155,7 @@ class ProfileController extends Controller
          Session::flash('success', 'Followed');
          return back();
     }
-    public function requests()
+    public function followers()
     {
        $uid = Auth::user()->id;
 

@@ -21,7 +21,7 @@
                                <h3 style="margin:0px;"><a href="{{url('/profile')}}/{{$uList->slug}}">
                                  {{ucwords($uList->firstname)}}</a></h3>
                                <p><i class="fa fa-globe"></i> {{$uList->city}}  - {{$uList->country}}</p>
-                               <p>{{$uList->about}}</p>
+                               <p>{{$uList->account_type}}</p>
 
                         </div>
                         <hr>

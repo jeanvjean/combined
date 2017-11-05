@@ -12,5 +12,9 @@ class Category extends Model
 
         return $this->hasMany('App\Product');
     }
+    public function designs(){
+
+        return $this->hasMany('App\Design');
+    }
 
 }
