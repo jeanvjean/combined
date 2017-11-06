@@ -92,7 +92,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span><img src="{{ url('../') }}/img/{{ Auth::user()->img }}" width="30px" height="30px" class="img-rounded"></span>
-                        <span>{{ Auth::user()->name }} </span><span class="caret"></span></a>
+                        <span>{{ Auth::user()->username }} </span><span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ url('profile') }}/{{ Auth::user()->slug }}">Profile</a></li>
                         <li><a href="{{ url('/findFriends') }}">Find User</a></li>
