@@ -29,6 +29,7 @@
         						<div class="agile-figcaption">
         						  <h4>{{ $product->name }}</h4>
         						  <p>{{ $product->description }}</p>
+        						  <p>By:{{ $product->user->profile->brand }}</p>
         						</div>
                                 <div class="">
                                     <a href="{{ route('products.addToCart',$product->id) }}" class="btn btn-primary btn-sm">Add To Cart</a>

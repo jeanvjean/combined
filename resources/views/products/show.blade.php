@@ -8,7 +8,7 @@
     <div class="col-md-8 col-md-offset-2">
         <div class="col-md-6 col-md-offset-3 thumbnail">
             <div class="">
-                <img style="width:100%" src="/storage/image/{{ $product->image }}" alt="">
+                <img heght="250px" width="100px" style="width:100%" src="/storage/image/{{ $product->image }}" alt="">
             </div>
             <div>
                 <h3>{{ $product->name }}</h3>

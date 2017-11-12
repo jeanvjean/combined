@@ -10,14 +10,14 @@
         <li><a href="{{ url('/profile') }}/{{ Auth::user()->slug }}">Profile</a></li>
         <li><a href="{{ url('/editProfile') }}/{{ Auth::user()->slug }}">Edit profile</a></li>
     </ol>
-    @if (Auth::user()->account_type == 'customer')
+    @if ($user->account_type == 'customer')
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">{{ucwords( Auth::user()->name )}}'s Profile</div>
+                <div class="panel-heading">{{ucwords( $user->name )}}'s Profile</div>
                 <div class="panel-body">
                     <div class="col-md-4">
                         <div class="thumbnail">
-                            <h3 align="center">{{ ucwords(Auth::user()->name) }}</h3>
+                            <h3 align="center">{{ ucwords($user->name) }}</h3>
                             <img src="{{Storage::url($user->img) }}" width="100px" height="100px"  class="img-rounded">
                             <div class="caption">
                                 <p align="center"></p>
@@ -119,38 +119,44 @@
                     </div>
                 @empty
                     <div class="text-center">
+                        @if (Auth::id()==$user->id)
                         <h3>Upload New Designs In Ur profile </h3>
+                        @else
+                            <h3>No New Design </h3>
+                        @endif
                     </div>
                 @endforelse
 				<div class="clearfix"> </div>
                 <hr>
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="">
-                        <form class="" action="{{ url('design') }}" method="post" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-                            {{ Form::label('design_img','Image:') }}
-                            {{ Form::file('design_img',null,['class'=>'form-control']) }}
+                @if (Auth::id()==$user->id)
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="">
+                            <form class="" action="{{ url('design') }}" method="post" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                {{ Form::label('design_img','Image:') }}
+                                {{ Form::file('design_img',null,['class'=>'form-control']) }}
 
-                            {{ Form::label('name', 'Design Name:') }}
-                            {{ Form::text('name',null,['class'=>'form-control']) }}
+                                {{ Form::label('name', 'Design Name:') }}
+                                {{ Form::text('name',null,['class'=>'form-control']) }}
 
-                            {{ Form::label('category_id','Category:') }}
-                            <select class="form-control" name="category_id">
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                            {{ Form::label('description','Design information:') }}
-                            {{ Form::textarea('description',null,['class'=>'form-control','rows'=>'3']) }}
+                                {{ Form::label('category_id','Category:') }}
+                                <select class="form-control" name="category_id">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                                {{ Form::label('description','Design information:') }}
+                                {{ Form::textarea('description',null,['class'=>'form-control','rows'=>'3']) }}
 
-                            {{ Form::submit('Upload Design',['class'=>'btn btn-primary btn-sm','style'=>'margin-top:5px']) }}
-                        </form>
+                                {{ Form::submit('Upload Design',['class'=>'btn btn-primary btn-sm','style'=>'margin-top:5px']) }}
+                            </form>
+                        </div>
+                        <hr>
+                        <div class="col-md-2">
+                            <a href="{{ route('products.create') }}" class="btn btn-primary">Add New Product</a>
+                        </div>
                     </div>
-                    <hr>
-                    <div class="col-md-2">
-                        <a href="{{ route('products.create') }}" class="btn btn-primary">Add New Product</a>
-                    </div>
-                </div>
+                @endif
 				<div class="clearfix"> </div>
 			</div>
 		</div>
