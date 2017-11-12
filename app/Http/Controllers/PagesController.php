@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Design;
 
 
 class PagesController extends Controller
@@ -40,5 +41,10 @@ class PagesController extends Controller
 
              return redirect('/');
 
+     }
+     public function showDesign()
+     {
+         $designs = Design::all();
+         return view('designs.designs')->withDesigns($designs);
      }
 }

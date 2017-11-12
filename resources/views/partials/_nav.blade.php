@@ -14,8 +14,9 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                 <li  class="{{ Request::is('/')? "active":"" }}"><a href="/"><span class="fa fa-home fa-2x"></span> Home</a></li>
+                <li><a href="{{ url('showDesign') }}"><span class="fa fa-pied-piper-alt fa-2x"></span>Designs</a></li>
             @if(Auth::check())
-                <li><a href="{{ url('/followers') }}"><span class="fa fa-pied-piper-alt fa-2x"></span>Followers</a></li>
+                <li><a href="{{ url('/followers') }}"><span class="fa fa-users fa-2x"></span>Followers</a></li>
                 <li class="dropdown">
                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                                   role="button" aria-expanded="false">
@@ -46,13 +47,13 @@
                                            @endif
                                         <div class="row">
                                          <div class="col-md-2">
-                                           <img src="{{url('../')}}/img/{{$message->img}}"
+                                           <img src="{{Storage::url($message->img) }}"
                                             style="width:50px; padding:5px; background:#fff; border:1px solid #eee" class="img-rounded">
                                          </div>
 
                                        <div class="col-md-10">
 
-                                        <b style="color:green; font-size:90%">{{ucwords($message->firstname)}}</b>
+                                        <b style="color:green; font-size:90%">{{ucwords($message->name)}}</b>
                                          <span style="color:#000; font-size:90%">{{$message->message}}</span>
                                          <br/>
                                          <small style="color:#90949C"> <i aria-hidden="true"></i>
@@ -66,7 +67,8 @@
                                   </ul>
                                </li>
             @endif
-                <li class="dropdown" style="margin-top:8px"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories<span class="caret"></span></a>
+                <li class="dropdown" style="margin-top:8px"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                     aria-haspopup="true" aria-expanded="false">Categories<span class="caret"></span></a>
                     <?php
                     use App\Category;
                     $categories=Category::all();
@@ -90,15 +92,17 @@
                 totalQty:'' }}</span></a></li>
 
                 <li class="dropdown">
+                    <?php
+                    $user=Auth::user();
+                    ?>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <span><img src="{{ url('../') }}/img/{{ Auth::user()->img }}" width="30px" height="30px" class="img-rounded"></span>
+                        <span><img src="{{Storage::url($user->img) }}" width="30px" height="30px" class="img-rounded"></span>
                         <span>{{ Auth::user()->username }} </span><span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('profile') }}/{{ Auth::user()->slug }}">Profile</a></li>
+                        <li><a href="{{ url('profile',['slug'=>Auth::user()->slug]) }}">Profile</a></li>
                         <li><a href="{{ url('/findFriends') }}">Find User</a></li>
                         <li><a href="{{ route('products.create') }}">Add Product</a></li>
                         <li><a href="{{ route('products.index') }}">Shop</a></li>
-                        <li><a href="{{ url('editProfile') }}/{{ Auth::user()->slug }}">Edit Profile</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{{ route('logout') }}">Logout</a></li>
                     </ul>

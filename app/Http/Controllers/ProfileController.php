@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\User;
 use Session;
 use App\Profile;
 use App\Design;
@@ -26,92 +27,54 @@ class ProfileController extends Controller
      */
     public function index($slug)
     {
-        /*$userData = DB::table('users')
-    ->leftJoin('profiles', 'profiles.user_id','users.id')
-    ->where('slug', $slug)
-    ->get();*/
-        $designs=Auth::user()->design;
-        $categories=Category::all();
-        return view('profile.index')->with('data',Auth::user()->profile)
-        ->withCategories($categories)
-        ->withDesigns($designs)/*->withUserData($userData)*/;
+        $categories = Category::all();
+        $designs = Auth::user()->design;
+        $user = User::where('slug',$slug)->first();
+        return view('profile.index')->withUser($user)
+        ->withDesigns($designs)
+        ->withCategories($categories);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function changeImage()
+    public function edit()
     {
-        return view('profile.profileImage');
+        $user = Auth::user();
+        return view('profile.edit')->with('data',Auth::user()->profile)->withUser($user);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
-     public function uploadImage(Request $request) {
-     $file = $request->file('img');
-     $filename = $file->getClientOriginalName();
-     $path = 'public/img';
-     $file->move($path, $filename);
-     $user_id = Auth::user()->id;
-     DB::table('users')->where('id', $user_id)->update(['img' => $filename]);
-     //return view('profile.index');
-     return back();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function editProfile($slug)
-    {
-        return view('profile.editProfile')->with('data',Auth::user()->profile);
-
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateProfile(Request $request)
+    public function update(Request $request)
     {
-
-        /*$user_id = Auth::user()->id;
-
-        DB::table('profiles')->where(['user_id', $user_id])->update($request->except('_token'));*/
-            $this->validate($request,[
-            'country'=>'required',
+        $this->validate($request,[
             'city'=>'required',
-            'brand'=>'required',
-            'website'=>'required',
-            'work_email'=>'required',
-            'phone_no'=>'required|max:11',
-            'about'=>'required|max:2000'
+            'country'=>'required',
+            'address'=>'required',
+            'phone_no'=>'required',
+            'about'=>'required',
+            'brand'=>'nullable',
+            'work_email'=>'nullable',
+            'website'=>'nullable',
+
         ]);
+        Auth::user()->profile()->update([
+            'city'=>$request->city,
+            'country'=>$request->country,
+            'address'=>$request->address,
+            'phone_no'=>$request->phone_no,
+            'about'=>$request->about,
+            'brand'=>$request->brand,
+            'work_email'=>$request->work_email,
+            'website'=>$request->website
+        ]);
+        if ($request->hasFile('img')) {
+            Auth::user()->update([
+                'img'=>$request->img->store('public/profile-image')
+            ]);
+        }
 
-        $profile=Profile::find(Auth::user()->id);
-
-        $profile->country=$request->country;
-        $profile->city=$request->city;
-        $profile->brand=$request->brand;
-        $profile->website=$request->website;
-        $profile->work_email=$request->work_email;
-        $profile->phone_no=$request->phone_no;
-        $profile->about=$request->about;
-
-        $profile->save();
-
-        Session::flash('success','Your Profile has been Updated');
+        Session::flash('success','Profile Updated');
         return back();
     }
 
@@ -141,15 +104,17 @@ class ProfileController extends Controller
 
          $FriendRequests = DB::table('followers')
                          ->rightJoin('users', 'users.id', '=', 'followers.requester')
-                         ->where('followers.requested', '=', $uid)->get()
+                         ->where('followers.requested', '=', $uid)
                          ->where('status', '=', 1)->get();
 
 
          $notifications = new Notification;
+
          $notifications->followed = $id; // who is accepting my request
          $notifications->follower = Auth::user()->id; // me
          $notifications->status = '1'; // unread notifications
          $notifications->message = 'started following you'; // unread notifications
+
          $notifications->save();
 
          Session::flash('success', 'Followed');

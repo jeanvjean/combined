@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">{{Auth::user()->firstname}}</div>
+                <div class="panel-heading">{{Auth::user()->name}}</div>
 
                 <div class="panel-body">
                     <div class="col-sm-12 col-md-12">
@@ -31,7 +31,7 @@
                             <ul>
                                 <li>
                                     <p><a href="{{url('/profile')}}/{{$message->slug}}" style="font-weight: bold; color:green">
-                                            {{$message->firstname}}</a> {{$message->message}}</p>
+                                            {{$message->name}}</a> {{$message->message}}</p>
                                 </li>
                             </ul>
 

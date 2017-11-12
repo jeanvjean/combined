@@ -66,10 +66,10 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         if($data['sex']=='male'){
-            $img_path = 'boy.png';
+            $img_path = 'public/default/avarters/boy.png';
         }
         else{
-            $img_path ='girl.png';
+            $img_path ='public/default/avarters/girl.png';
         }
         if($data['account_type']=='designer'){
             $account = 'designer';

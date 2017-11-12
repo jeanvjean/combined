@@ -2,13 +2,8 @@
 
 namespace App\Traits;
 use App\Follower;
-trait Friendable {
-
-    public function test() {
-
-        return 'hi';
-    }
-
+trait Friendable
+{
     public function addFriend($id){
 
         $Friendship = Follower::create([

@@ -4,8 +4,9 @@
 
 @section('content')
 
-    <h2>Add Product</h2>
-    <div class="row">
+    <h2 align="center" style="margin-top:20px">Add Product</h2>
+    <hr>
+    <div class="container">
         <div class="col-md-10 col-md-offset-1">
             <div class="col-md-6 col-md-offset-2 thumbnail">
                 <form action="{{route('products.store')}}" method="POST" data-app-validate="" enctype="multipart/form-data">

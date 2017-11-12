@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model
+class Comment extends Model
 {
-    protected $fillable = ['city', 'country','address','about', 'phone_no','user_id'];
-
+    protected $fillable = [
+        'name','email','comment','user_id','phone_no',
+    ];
     public function user()
     {
         $this->belongsTo('App\User');

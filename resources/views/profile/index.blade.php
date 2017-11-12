@@ -13,22 +13,24 @@
     @if (Auth::user()->account_type == 'customer')
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}'s Profile</div>
+                <div class="panel-heading">{{ucwords( Auth::user()->name )}}'s Profile</div>
                 <div class="panel-body">
                     <div class="col-md-4">
                         <div class="thumbnail">
-                            <h3 align="center">{{ Auth::user()->firstname }}</h3>
-                            <img src="{{ url('../') }}/img/{{ Auth::user()->img }}" width="100px" height="100px"  class="img-rounded">
+                            <h3 align="center">{{ ucwords(Auth::user()->name) }}</h3>
+                            <img src="{{Storage::url($user->img) }}" width="100px" height="100px"  class="img-rounded">
                             <div class="caption">
-                                <p align="center">{{ $data->city }} - {{ $data->country }}</p>
-                                <p align="center"> <a href="{{ url('/editProfile') }}/{{ Auth::user()->slug }}" class="btn btn-primary btn-sm" role="button">Edit Profile</a>
+                                <p align="center"></p>
+                                @if (Auth::id()==$user->id)
+                                    <p align="center"> <a href="{{ route('profile.edit') }}" class="btn btn-primary btn-sm" role="button">Edit Profile</a>
+                                @endif
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <h4>About</h4>
-                        <p>{{ $data->about }}</p>
+                        <p>{{ $user->profile->about }}</p>
                     </div>
                 </div>
             </div>
@@ -42,11 +44,13 @@
     			<h3 class="agileits-title">My Profile</h3>
     			<div class="col-md-8 about-w3left">
     				<h4>About Me</h4>
-    				<p>{{ $data->about }}</p>
+    				<p>{{ $user->profile->about }}</p>
     			</div>
     			<div class="col-md-4 about-w3right">
-    				<img src="{{ url('../') }}/img/{{ Auth::user()->img }}" width="100px" height="100px"><br><br>
-                    <p align="center"> <a href="{{ url('/editProfile') }}/{{ Auth::user()->slug }}" class="btn btn-primary btn-sm" role="button">Edit Profile</a>
+    				<img src="{{Storage::url($user->img) }}" width="100px" height="250px" style="border-radious:50%"><br><br>
+                    @if (Auth::id()==$user->id)
+                    <p align="center"> <a href="{{ route('profile.edit') }}" class="btn btn-primary btn-sm" role="button">Edit Profile</a>
+                    @endif
     			</div>
     			<div class="clearfix"> </div>
     		</div>
@@ -57,11 +61,12 @@
 			<div class="contact-agileinfo">
 				<div class="col-md-7 contact-right">
                     	<h3 class="agileits-title">Leave A Message</h3>
-					<form action="#" method="post">
-						<input type="text" name="Name" placeholder="Name" required="">
-						<input type="text" class="email" name="Email" placeholder="Email" required="">
-						<input type="text" name="Phone no" placeholder="Phone" required="">
-						<textarea name="Message" placeholder="Message" required=""></textarea>
+					<form action="{{ route('comments.store') }}" method="post">
+                        {{ csrf_field() }}
+						<input type="text" name="name" placeholder="Name" required="">
+						<input type="text" class="email" name="email" placeholder="Email" required="">
+						<input type="text" name="phone no" placeholder="Phone" required="">
+						<textarea name="comment" placeholder="Message" required=""></textarea>
 						<input type="submit" class="" value="SUBMIT" >
 					</form>
 				</div>
@@ -69,19 +74,19 @@
                     <h3 class="agileits-title">Contact Me</h3>
 					<div class="address">
 						<h5>Address:</h5>
-						<p><i class="glyphicon glyphicon-home"></i>{{ $data->address }}</p>
+						<p><i class="glyphicon glyphicon-home">{{ $user->profile->address }}</i></p>
 					</div>
 					<div class="address address-mdl">
 						<h5>Phones:</h5>
-						<p><i class="glyphicon glyphicon-earphone"></i>{{ $data->phone_no }}</p>
+						<p><i class="glyphicon glyphicon-earphone"></i>{{ $user->profile->phone_no }}</p>
 					</div>
 					<div class="address">
 						<h5>Website:</h5>
-						<p><i class="glyphicon glyphicon-envelope"></i> <a href="{{ $data->website }}">{{ $data->website }}</a></p>
+						<p><i class="glyphicon glyphicon-envelope"></i> <a href="">{{ $user->profile->website }}</a></p>
 					</div>
 					<div class="address">
 						<h5>Email:</h5>
-						<p><i class="glyphicon glyphicon-envelope"></i> <a href="#">{{ $data->work_email }}</a></p>
+						<p><i class="glyphicon glyphicon-envelope"></i> <a href="#">{{ $user->profile->work_email }}</a></p>
 					</div>
 				</div>
 				<div class="clearfix"></div>
@@ -140,6 +145,10 @@
 
                             {{ Form::submit('Upload Design',['class'=>'btn btn-primary btn-sm','style'=>'margin-top:5px']) }}
                         </form>
+                    </div>
+                    <hr>
+                    <div class="col-md-2">
+                        <a href="{{ route('products.create') }}" class="btn btn-primary">Add New Product</a>
                     </div>
                 </div>
 				<div class="clearfix"> </div>

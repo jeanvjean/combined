@@ -11,7 +11,7 @@
 <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">{{Auth::user()->firstname}}</div>
+                <div class="panel-heading">{{Auth::user()->name}}</div>
 
                 <div class="panel-body">
                     <div class="col-sm-12 col-md-12">
@@ -19,11 +19,11 @@
 
                         <div class="row" style="border-bottom:1px solid #ccc; margin-bottom:15px">
                             <div class="col-md-2 pull-left">
-                                <img src="{{url('../')}}/img/{{$uList->img}}" width="80px" height="80px" class="img-rounded"/>
+                                <img src="{{Storage::url($uList->img) }}" width="80px" height="80px" class="img-rounded"/>
                             </div>
 
                             <div class="col-md-7 pull-left">
-                                <h3 style="margin:0px;"><a href="">{{ucwords($uList->firstname)}}</a></h3>
+                                <h3 style="margin:0px;"><a href="">{{ucwords($uList->name)}}</a></h3>
 
                                 <p><b>Gender:</b> {{$uList->sex}}</p>
                                    <p><b>Email:</b> {{$uList->email}}</p>

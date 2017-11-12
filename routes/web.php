@@ -15,6 +15,7 @@
 Route::get('add_to_cart/{id}',['uses'=>'ProductController@getAddToCart','as'=>'products.addToCart']);
 Route::get('shopping-cart',['uses'=>'ProductController@getCart','as'=>'products.shoppingCart']);
 Route::get('/','PagesController@getIndex');
+Route::get('showDesign', 'PagesController@showDesign');
 
 Route::group(['middleware'=>['web','auth']],function(){
     //checkout
@@ -23,22 +24,26 @@ Route::group(['middleware'=>['web','auth']],function(){
     //Pages Controller
     Route::get('contact', 'PagesController@getContact');
     Route::post('contact', 'PagesController@postContact');
+
     //resource controllers
     Route::resource('designs','DesignController',['except'=>['create','index']]);
     Route::resource('products', 'ProductController');
     Route::resource('categories', 'CategoryController');
+
+    Route::resource('comments','CommentController',['except'=>['create','index','edit','update']]);
     //ProfileController
     Route::get('/profile/{slug}','ProfileController@index');
+    Route::get('/profile/edit/profile','ProfileController@edit')->name('profile.edit');
+    Route::post('/profile/update','ProfileController@update')->name('profile.update');
     Route::get('/changeImage','ProfileController@changeImage');
     Route::post('/uploadImage','ProfileController@uploadImage');
-    Route::get('/editProfile/{slug}','ProfileController@editProfile');
-    Route::post('/updateProfile','ProfileController@updateProfile');
 
     Route::get('/findFriends', 'ProfileController@findFriends');
     Route::get('/addFriend/{id}', 'ProfileController@sendRequest');
     Route::get('/followers', 'ProfileController@followers');
     Route::get('/unfollow/{id}', 'ProfileController@unfollow');
     Route::get('/notifications/{id}', 'ProfileController@notifications');
+
     //Route::get('/accept/{name}/{id}', 'ProfileController@accept');
 
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');

@@ -7,19 +7,19 @@
     <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
             <div class="panel-heading">
-                {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}
+                {{ Auth::user()->name }}
             </div>
             <div class="panel-body">
                  <div class="col-md-12">
                      @foreach ($allUsers as $uList)
                          <div class="col-md-2 pull-left">
-                                <img src="{{url('../')}}/img/{{$uList->img}}"
+                                <img src="{{Storage::url($uList->img) }}"
                                 width="80px" height="80px" class="img-rounded"/>
                         </div>
                         <br>
                         <div class="col-md-7 pull-left">
                                <h3 style="margin:0px;"><a href="{{url('/profile')}}/{{$uList->slug}}">
-                                 {{ucwords($uList->firstname)}}</a></h3>
+                                 {{ucwords($uList->name)}}</a></h3>
                                <p><i class="fa fa-globe"></i> {{$uList->city}}  - {{$uList->country}}</p>
                                <p>{{$uList->account_type}}</p>
 
