@@ -25,7 +25,7 @@
                     @forelse ($products as $product)
         				<div class="col-md-4 col-xs-6 w3gallery-grids">
         					<a href="{{ url('../') }}/storage/image/{{ $product->image }}" class="imghvr-hinge-right figure">
-        						<img src="{{ url('../') }}/storage/image/{{ $product->image }}" alt="" title="New Designs Image"/>
+        						<img height="450px" width="300px" style="border-redius:50%" src="{{ url('../') }}/storage/image/{{ $product->image }}" alt="" title="New Designs Image"/>
         						<div class="agile-figcaption">
         						  <h4>{{ $product->name }}</h4>
         						  <p>{{ $product->description }}</p>

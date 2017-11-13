@@ -13,8 +13,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                <li  class="{{ Request::is('/')? "active":"" }}"><a href="/"><span class="fa fa-home fa-2x"></span> Home</a></li>
-                <li><a href="{{ url('showDesign') }}"><span class="fa fa-pied-piper-alt fa-2x"></span>Designs</a></li>
+                <li><a href="/"><span class="fa fa-home fa-2x"></span> Home</a></li>
             @if(Auth::check())
                 <li><a href="{{ url('/followers') }}"><span class="fa fa-users fa-2x"></span>Followers</a></li>
                 <li class="dropdown">
@@ -99,10 +98,10 @@
                         <span><img src="{{Storage::url($user->img) }}" width="30px" height="30px" class="img-rounded"></span>
                         <span>{{ Auth::user()->username }} </span><span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('profile',['slug'=>Auth::user()->slug]) }}">Profile</a></li>
+                        @if (Auth::id()==$user->id)                            
+                            <li><a href="{{ url('profile',['slug'=>Auth::user()->slug]) }}">Profile</a></li>
+                        @endif
                         <li><a href="{{ url('/findFriends') }}">Find User</a></li>
-                        <li><a href="{{ route('products.create') }}">Add Product</a></li>
-                        <li><a href="{{ route('products.index') }}">Shop</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{{ route('logout') }}">Logout</a></li>
                     </ul>

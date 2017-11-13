@@ -41,13 +41,13 @@
     @else
         <div class="about agileinfo">
     		<div class="container">
-    			<h3 class="agileits-title">My Profile</h3>
+    			<h3 class="agileits-title">{{ $user->name }}'s Profile</h3>
     			<div class="col-md-8 about-w3left">
     				<h4>About Me</h4>
     				<p>{{ $user->profile->about }}</p>
     			</div>
     			<div class="col-md-4 about-w3right">
-    				<img src="{{Storage::url($user->img) }}" width="100px" height="250px" style="border-radious:50%"><br><br>
+    				<img src="{{Storage::url($user->img) }}" width="100px" height="250px" style="border-radius:50%"><br><br>
                     @if (Auth::id()==$user->id)
                     <p align="center"> <a href="{{ route('profile.edit') }}" class="btn btn-primary btn-sm" role="button">Edit Profile</a>
                     @endif
@@ -96,7 +96,7 @@
 	</div>
 	<div class="team">
 		<div class="container">
-			<h3 class="agileits-title">My Designs</h3>
+			<h3 class="agileits-title">{{ $user->name }}'s Designs</h3>
 			<div class="team-row w3ls-team-row">
                 @forelse ($designs as $design)
                     <div class="col-md-3 col-sm-3 col-xs-6 team-wthree-grids">
