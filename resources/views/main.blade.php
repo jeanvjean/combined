@@ -21,7 +21,7 @@
                                 </ul>
                             </div>
                         @endif
-            			<p align="center">&copy DevsMan © 2017 Attire</p>
+            			<p align="center">&copy DevsMan 2017 </p>
             		</div>
             	</div>
 
