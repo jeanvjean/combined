@@ -15,10 +15,10 @@
                             <div class="btn-group">
                                 <button type="button" class="btn btn-info btn-xs
                                  dropdown-toggle" data-toggle="dropdown" name="button">
-                             Action <span class="caret"></span></button>
+                             Remove <span class="caret"></span></button>
                              <ul class="dropdown-menu">
-                                    <li><a href="#">Remove 1</a></li>
-                                    <li><a href="#">Remove all</a></li>
+                                    <li><a href="{{ route('products.removeOne',['id'=>$product['item']['id']]) }}">Remove 1</a></li>
+                                    <li><a href="{{ route('products.removeAll',['id'=>$product['item']['id']]) }}">Remove all</a></li>
                              </ul>
                             </div>
                         </li>
@@ -30,7 +30,7 @@
                 </div>
                 @else
                     <div class="well">
-                        <h2>Cart is empty..!!</h2>
+                        <h2 align="center">Cart is empty..!!</h2>
                     </div>
             @endif
             </div>

@@ -23,7 +23,7 @@ class ProductController extends Controller
         return view('products.index')->withProducts($products);
     }
 
-    Public function getAddToCart(Request $request,$id)
+    Public function getAddToCart(Request $request,$id)//add product to cart
     {
             $product=Product::find($id);
             $oldCart=Session::has('cart') ? Session::get('cart') : null;
@@ -34,7 +34,35 @@ class ProductController extends Controller
 
             return redirect()->route('products.index');
     }
-    public function getCart(){
+    public function removeOne($id)//reduce cart qty
+    {
+        $oldCart=Session::has('cart') ? Session::get('cart') : null;
+        $cart=new Cart($oldCart);
+        $cart->remove($id);
+
+        if (count($cart->items)>0) {
+            Session::put('cart',$cart);
+        }else {
+            Session::forget('cart');
+        }
+        return redirect()->route('products.shoppingCart');
+    }
+    public function removeAll($id)//empty the cart
+    {
+        $oldCart=Session::has('cart') ? Session::get('cart') : null;
+        $cart=new Cart($oldCart);
+        $cart->clear($id);
+
+        if (count($cart->items)>0) {
+            Session::put('cart',$cart);
+        }else {
+            Session::forget('cart');
+        }
+        return redirect()->route('products.shoppingCart');
+    }
+
+    public function getCart()//return Cart view
+    {
         $products = Product::all();
         if(Session::has('cart')){
             return view('shop.shopping-cart')->withProducts($products);
