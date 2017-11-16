@@ -28,7 +28,7 @@ class ProfileController extends Controller
     public function index($slug)
     {
         $categories = Category::all();
-        $designs = Auth::user()->design;
+        $designs = Design::all();
         $user = User::where('slug',$slug)->first();
         return view('profile.index')->withUser($user)
         ->withDesigns($designs)

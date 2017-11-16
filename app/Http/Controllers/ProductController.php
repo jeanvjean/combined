@@ -166,6 +166,15 @@ class ProductController extends Controller
             'category_id'=>'required',
             'price'=>'required'
         ]);
+        if($request->hasFile('image')){
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            $filename=pathinfo($filenameWithExt,PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileNameToStore = $filename.'.'.time().'.'.$extension;
+            $path = $request->file('image')->storeAs('public/image', $fileNameToStore);
+        }else{
+            $fileNameToStore = noimage.jpg;
+        }
         $product= Product::find($id);
 
         $product->product=$request->input('product');

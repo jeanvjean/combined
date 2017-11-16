@@ -20,13 +20,13 @@
             {{ Form::text('price',null,['class'=>'form-control']) }}
 
         </div>
+        <div>
+            {{ form::submit('Save',['class'=>'btn btn-success']) }}
+        </div>
+        <div class="">
+                {!! Html::linkRoute('products.show','Cancel',[$product->id],['class'=>'btn btn-danger']) !!}
+        </div>
         {!! Form::close() !!}
-    </div>
-    <div>
-        {!! Html::linkRoute('products.show','Cancel',[$product->id],['class'=>'btn btn-danger']) !!}
-
-        {{ form::submit('Save',['class'=>'btn btn-success']) }}
-        
     </div>
 </div>
 

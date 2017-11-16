@@ -98,23 +98,31 @@
 		<div class="container">
 			<h3 class="agileits-title">{{ $user->name }}'s Designs</h3>
 			<div class="team-row w3ls-team-row">
+                <div class="col-md-3 col-sm-3 col-xs-6 team-wthree-grids">
                 @forelse ($designs as $design)
-                    <div class="col-md-3 col-sm-3 col-xs-6 team-wthree-grids">
-                        <div class="w3ls-effect">
-                            <img src="{{ url('../') }}/storage/designs/{{ $design->design_img }}" alt="img">
-                            <div class="w3layouts-caption">
-                                <h4>{{ $design->name }}</h4>
-                                <p>{{ $design->description }}</p>
-                                <p>{{ $design->category->name }}</p>
+                    @if ($design->user_id == $user->id)
+                            <div class="w3ls-effect">
+                                <img src="{{ url('../') }}/storage/designs/{{ $design->design_img }}" alt="img">
+                                <div class="w3layouts-caption">
+                                    <h4>{{ $design->name }}</h4>
+                                    <p>{{ $design->description }}</p>
+                                    <p>{{ $design->category->name }}</p>
+                                </div>
+                                <div class="wthree-icon social-icon">
+                                    <a href="#" class="social-button twitter"><i class="fa fa-twitter"></i></a>
+                                    <a href="#" class="social-button facebook"><i class="fa fa-facebook"></i></a>
+                                    <a href="#" class="social-button google"><i class="fa fa-google-plus"></i></a>
+                                </div>
                             </div>
-                            <div class="wthree-icon social-icon">
-                                <a href="#" class="social-button twitter"><i class="fa fa-twitter"></i></a>
-                                <a href="#" class="social-button facebook"><i class="fa fa-facebook"></i></a>
-                                <a href="#" class="social-button google"><i class="fa fa-google-plus"></i></a>
+                    @endif
+                        @if (Auth::id()==$user->id)
+                            <div class="">
+                                {!! Form::open(['route'=>['designs.destroy',$design->id], 'method'=>'DELETE']) !!}
+
+                                {!! Form::submit('Delete', ['class'=>'btn btn-danger btn-block','style'=>'margin-top:10px']) !!}
+
+                                {!! Form::close() !!}
                             </div>
-                        </div>
-                        @if (Auth::user()->profile)
-                            <a href="{{ route('designs.show',$design->id) }}" class="btn btn-success btn-sm">Details</a>
                         @endif
                     </div>
                 @empty
@@ -131,10 +139,10 @@
                 @if (Auth::id()==$user->id)
                     <div class="col-md-8 col-md-offset-2">
                         <div class="">
-                            <form class="" action="{{ url('design') }}" method="post" enctype="multipart/form-data">
+                            <form class="" action="{{ route('designs.store') }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 {{ Form::label('design_img','Image:') }}
-                                {{ Form::file('design_img',null,['class'=>'form-control']) }}
+                                <input type="file" name="design_img[]" multiple="true">
 
                                 {{ Form::label('name', 'Design Name:') }}
                                 {{ Form::text('name',null,['class'=>'form-control']) }}

@@ -28,13 +28,13 @@ Route::group(['middleware'=>['web','auth']],function(){
     Route::post('contact', 'PagesController@postContact');
 
     //resource controllers
-    Route::resource('designs','DesignController',['except'=>['create','index']]);
+    Route::resource('designs','DesignController',['except'=>['create','index','edit','update','show']]);
     Route::resource('products', 'ProductController');
     Route::resource('categories', 'CategoryController');
 
-    Route::resource('comments','CommentController',['except'=>['create','index','edit','update']]);
+    Route::resource('comments','CommentController',['except'=>['create','index','edit','update','show']]);
     //ProfileController
-    Route::get('/profile/{slug}','ProfileController@index');
+    Route::get('/profile/{slug}','ProfileController@index')->name('profile.index');
     Route::get('/profile/edit/profile','ProfileController@edit')->name('profile.edit');
     Route::post('/profile/update','ProfileController@update')->name('profile.update');
     Route::get('/changeImage','ProfileController@changeImage');
