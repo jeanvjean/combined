@@ -98,8 +98,8 @@
 		<div class="container">
 			<h3 class="agileits-title">{{ $user->name }}'s Designs</h3>
 			<div class="team-row w3ls-team-row">
-                <div class="col-md-3 col-sm-3 col-xs-6 team-wthree-grids">
                 @forelse ($designs as $design)
+                    <div class="col-md-3 col-sm-3 col-xs-6 team-wthree-grids">
                     @if ($design->user_id == $user->id)
                             <div class="w3ls-effect">
                                 <img src="{{ url('../') }}/storage/designs/{{ $design->design_img }}" alt="img">
@@ -163,12 +163,24 @@
                         <div class="col-md-2">
                             <a href="{{ route('products.create') }}" class="btn btn-primary">Add New Product</a>
                         </div>
+                        <br>
                     </div>
                 @endif
 				<div class="clearfix"> </div>
 			</div>
 		</div>
 	</div>
+    @endif
+    @if (Auth::id()==$user->id)
+        <div class="container">
+        @foreach ($products as $product)
+            @if ($product->user_id==$user->id)
+                    <ol>
+                        <li>{{ $product->name }} <a href="{{ route('products.show',$product->id) }}">View</a></li>
+                    </ol>
+            @endif
+        @endforeach
+        </div>
     @endif
 </div>
 @endsection

@@ -139,60 +139,6 @@ class ProductController extends Controller
         return view('products.show')->withProduct($product);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $product=Product::find($id);
-        return view('products.edit')->withProduct($product);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $this->validate($request,[
-            'product'=>'required',
-            'description'=>'required|min:5|max:1000',
-            'category_id'=>'required',
-            'price'=>'required'
-        ]);
-        if($request->hasFile('image')){
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            $filename=pathinfo($filenameWithExt,PATHINFO_FILENAME);
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $fileNameToStore = $filename.'.'.time().'.'.$extension;
-            $path = $request->file('image')->storeAs('public/image', $fileNameToStore);
-        }else{
-            $fileNameToStore = noimage.jpg;
-        }
-        $product= Product::find($id);
-
-        $product->product=$request->input('product');
-        $product->description=$request->input('description');
-        $product->category_id=$request->input('category_id');
-        $product->price=$request->input('price');
-
-        Auth::user()->product()->save($product);
-        Session::flash('success','Update Successfull');
-        return redirect()->route('products.show',$product->id);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $product=Product::find($id);

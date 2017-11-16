@@ -29,7 +29,7 @@ Route::group(['middleware'=>['web','auth']],function(){
 
     //resource controllers
     Route::resource('designs','DesignController',['except'=>['create','index','edit','update','show']]);
-    Route::resource('products', 'ProductController');
+    Route::resource('products', 'ProductController',['except'=>['edit','update']]);
     Route::resource('categories', 'CategoryController');
 
     Route::resource('comments','CommentController',['except'=>['create','index','edit','update','show']]);

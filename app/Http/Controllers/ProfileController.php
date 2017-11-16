@@ -8,6 +8,7 @@ use App\User;
 use Session;
 use App\Profile;
 use App\Design;
+use App\Product;
 use App\Category;
 use Illuminate\Support\Facades\DB;
 use App\Notification;
@@ -27,12 +28,14 @@ class ProfileController extends Controller
      */
     public function index($slug)
     {
+        $products = Product::all();
         $categories = Category::all();
         $designs = Design::all();
         $user = User::where('slug',$slug)->first();
         return view('profile.index')->withUser($user)
         ->withDesigns($designs)
-        ->withCategories($categories);
+        ->withCategories($categories)
+        ->withProducts($products);
     }
     public function edit()
     {
