@@ -28,10 +28,10 @@ class ProfileController extends Controller
      */
     public function index($slug)
     {
-        $products = Product::all();
         $categories = Category::all();
-        $designs = Design::all();
         $user = User::where('slug',$slug)->first();
+        $products = Product::where('user_id',$user->id)->get();
+        $designs = Design::where('user_id',$user->id)->get();
         return view('profile.index')->withUser($user)
         ->withDesigns($designs)
         ->withCategories($categories)

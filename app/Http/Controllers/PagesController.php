@@ -11,8 +11,9 @@ class PagesController extends Controller
 {
     public function getIndex()
     {
+        $designs = Design::orderBy('created_at','desc')->limit(4)->get();
         $products=Product::all();
-        return view('welcome')->withProducts($products);
+        return view('welcome')->withProducts($products)->withDesigns($designs);
     }
     public function getContact(){
          return view('contact');

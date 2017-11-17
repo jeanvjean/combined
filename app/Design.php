@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Design extends Model
 {
     protected $fillable = [
-        'name', 'description', 'category_id','design_img'
+        'name', 'description', 'category_id','design_img','user_id'
     ];
     public function category(){
 
@@ -15,7 +15,7 @@ class Design extends Model
     }
     public function user()
     {
-       return $this->belongsTo(user::class);
+       return $this->belongsTo(User::class);
      }
 
 }

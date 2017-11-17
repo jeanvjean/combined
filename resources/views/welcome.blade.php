@@ -25,18 +25,16 @@
 				<div class="clearfix"> </div>
 			</div>
 			<div class="welcome-w3lsrow2">
-				<div class="col-sm-3 col-xs-3 w3welcome-grids">
-					<img src="images/img2.jpg" class="img-responsive" alt=""/>
-				</div>
-				<div class="col-sm-3 col-xs-3 w3welcome-grids">
-					<img src="images/img3.jpg" class="img-responsive" alt=""/>
-				</div>
-				<div class="col-sm-3 col-xs-3 w3welcome-grids">
-					<img src="images/img4.jpg" class="img-responsive" alt=""/>
-				</div>
-				<div class="col-sm-3 col-xs-3 w3welcome-grids">
-					<img src="images/img5.jpg" class="img-responsive" alt=""/>
-				</div>
+                @forelse ($designs as $design)
+                    <div class="col-sm-3 col-xs-3 w3welcome-grids">
+                        <img src="{{ url('../') }}/storage/designs/{{ $design->design_img }}" class="img-responsive">
+                        <p>Design By:{{ $design->user->profile->brand }}</p>
+                    </div><br>
+                @empty
+                    <div class="text-center">
+                        No New Trends
+                    </div>
+                @endforelse
 				<div class="clearfix"> </div>
 			</div>
 		</div>

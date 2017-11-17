@@ -100,7 +100,6 @@
 			<div class="team-row w3ls-team-row">
                 @forelse ($designs as $design)
                     <div class="col-md-3 col-sm-3 col-xs-6 team-wthree-grids">
-                    @if ($design->user_id == $user->id)
                             <div class="w3ls-effect">
                                 <img src="{{ url('../') }}/storage/designs/{{ $design->design_img }}" alt="img">
                                 <div class="w3layouts-caption">
@@ -113,8 +112,7 @@
                                     <a href="#" class="social-button facebook"><i class="fa fa-facebook"></i></a>
                                     <a href="#" class="social-button google"><i class="fa fa-google-plus"></i></a>
                                 </div>
-                            </div>
-                    @endif
+                             </div>
                         @if (Auth::id()==$user->id)
                             <div class="">
                                 {!! Form::open(['route'=>['designs.destroy',$design->id], 'method'=>'DELETE']) !!}
@@ -123,6 +121,7 @@
 
                                 {!! Form::close() !!}
                             </div>
+                            <br><br>
                         @endif
                     </div>
                 @empty
@@ -134,53 +133,52 @@
                         @endif
                     </div>
                 @endforelse
-				<div class="clearfix"> </div>
-                <hr>
-                @if (Auth::id()==$user->id)
-                    <div class="col-md-8 col-md-offset-2">
-                        <div class="">
-                            <form class="" action="{{ route('designs.store') }}" method="post" enctype="multipart/form-data">
-                                {{ csrf_field() }}
-                                {{ Form::label('design_img','Image:') }}
-                                <input type="file" name="design_img[]" multiple="true">
-
-                                {{ Form::label('name', 'Design Name:') }}
-                                {{ Form::text('name',null,['class'=>'form-control']) }}
-
-                                {{ Form::label('category_id','Category:') }}
-                                <select class="form-control" name="category_id">
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
-                                {{ Form::label('description','Design information:') }}
-                                {{ Form::textarea('description',null,['class'=>'form-control','rows'=>'3']) }}
-
-                                {{ Form::submit('Upload Design',['class'=>'btn btn-primary btn-sm','style'=>'margin-top:5px']) }}
-                            </form>
-                        </div>
-                        <hr>
-                        <div class="col-md-2">
-                            <a href="{{ route('products.create') }}" class="btn btn-primary">Add New Product</a>
-                        </div>
-                        <br>
-                    </div>
-                @endif
-				<div class="clearfix"> </div>
+                <div class="clearfix"> </div>
 			</div>
-		</div>
-	</div>
-    @endif
-    @if (Auth::id()==$user->id)
-        <div class="container">
-        @foreach ($products as $product)
-            @if ($product->user_id==$user->id)
-                    <ol>
-                        <li>{{ $product->name }} <a href="{{ route('products.show',$product->id) }}">View</a></li>
-                    </ol>
+            @if (Auth::id()==$user->id)
+                <div class="col-md-8 col-md-offset-2">
+                    <div style="margin-top:20px">
+                        <form class="" action="{{ route('designs.store') }}" method="post" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            {{ Form::label('design_img','Image:') }}
+                            <input type="file" name="design_img[]" multiple="true">
+
+                            {{ Form::label('name', 'Design Name:') }}
+                            {{ Form::text('name',null,['class'=>'form-control']) }}
+
+                            {{ Form::label('category_id','Category:') }}
+                            <select class="form-control" name="category_id">
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                            {{ Form::label('description','Design information:') }}
+                            {{ Form::textarea('description',null,['class'=>'form-control','rows'=>'3']) }}
+
+                            {{ Form::submit('Upload Design',['class'=>'btn btn-primary btn-sm','style'=>'margin-top:5px']) }}
+                        </form>
+                    </div>
+                    <hr>
+                    <div class="col-md-2">
+                        <a href="{{ route('products.create') }}" class="btn btn-primary">Add New Product</a>
+                    </div>
+                    <br>
+                </div>
             @endif
-        @endforeach
-        </div>
+		</div>
+        <div class="clearfix"> </div>
+        @if (Auth::id()==$user->id)
+            <div class="col-md-6 col-md-offset-3">
+                <div class="">
+                    @foreach ($products as $product)
+                            <ol>
+                                <li>{{ $product->name }} <a href="{{ route('products.show',$product->id) }}">View</a></li>
+                            </ol>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+	</div>
     @endif
 </div>
 @endsection
