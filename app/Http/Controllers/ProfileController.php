@@ -30,8 +30,8 @@ class ProfileController extends Controller
     {
         $categories = Category::all();
         $user = User::where('slug',$slug)->first();
-        $products = Product::where('user_id',$user->id)->get();
-        $designs = Design::where('user_id',$user->id)->get();
+        $products = Product::where('user_id',$user->id)->paginate('5');
+        $designs = Design::where('user_id',$user->id)->paginate('4');
         return view('profile.index')->withUser($user)
         ->withDesigns($designs)
         ->withCategories($categories)

@@ -169,13 +169,13 @@
         <div class="clearfix"> </div>
         @if (Auth::id()==$user->id)
             <div class="col-md-6 col-md-offset-3">
+                @foreach ($products as $product)
                 <div class="">
-                    @foreach ($products as $product)
-                            <ol>
-                                <li>{{ $product->name }} <a href="{{ route('products.show',$product->id) }}">View</a></li>
-                            </ol>
-                    @endforeach
+                    <ol>
+                        <li>{{ $product->name }} <a href="{{ route('products.show',$product->id) }}">View</a></li>
+                    </ol>
                 </div>
+            @endforeach
             </div>
         @endif
 	</div>
